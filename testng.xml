@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="AppUI Test Suite" parallel="false">
 
-<parameter name="propertiesPath" value="src/test/resources/config/config.properteis" />
+	<parameter name="propertiesPath" value="src/test/resources/config/config.properteis" />
+	<parameter name="platformName" value="Android" />
+	<parameter name="platformVersion" value="11" />
+	<parameter name="deviceName" value="emulator-5554" />
+	<parameter name="appPackage" value="com.google.deskclock" />
+	<parameter name="appActivity" value="com.android.deskclock.DeskClock" />
+	<parameter name="appiumURL" value="http://127.0.0.1:4723/wd/hub" />
 
-<listeners>
-	<listener class-name="listener.CustomListener" />
-</listeners>
- 
-  <test name="emulatorTest">
-  	<parameter name="deviceName" value="emulator-5554"/>
-  	<parameter name="platformVersion" value="11"/>
-  	<parameter name="appiumUrl" value="http://localhost:4723"/>
-    <classes>
-      <class name="testcases.TestLaunchApp"/>
-    </classes>
-   <methods>
-   		<include name = "launchApp" />
-   </methods>
-  </test> <!-- Test -->
- 
+
+	<listeners>
+		<listener class-name="listener.TestLogListener" />
+	</listeners>
+	 
+	<test name="emulatorTest">
+	    <classes>
+	      <class name="testcases.LoginPageTest"/>
+	    </classes>
+	   <methods>
+	   		<include name = "testLogin" />
+	   </methods>
+	  </test> <!-- Test -->
+	 
 </suite> <!-- Suite -->

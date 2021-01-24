@@ -1,16 +1,12 @@
 package driver;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-
 import io.appium.java_client.MobileDriver;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.ios.IOSDriver;
-import util.PropertiesReader;
+import io.appium.java_client.remote.MobileCapabilityType;
 
 public class BaseDriver {
 
@@ -36,18 +32,18 @@ public class BaseDriver {
          //File appApk = new File("/application/application_name.apk");
 
         DesiredCapabilities cap = new DesiredCapabilities();
-        cap.setCapability("platformName", platformName);	//MobileCapabilityType.PLATFORM_NAME, , MobilePlatform.ANDROID
-        cap.setCapability("platformVersion", platformVersion);	//obileCapabilityType.PLATFORM_VERSION
-        cap.setCapability("deviceName", deviceName);	//MobileCapabilityType.DEVICE_NAME
+        cap.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
+        cap.setCapability(MobileCapabilityType.PLATFORM_VERSION, platformVersion);
+        cap.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
         
         //TODO: setup based on package * activity name OR apk file, absolute dir
        // cap.setCapability("app", appApk.getAbsolutePath());	//MobileCapabilityType.APP
         cap.setCapability("appPackage", appPackage);
-        cap.setCapability("appActivity", appActivity);
-        cap.setCapability("automationName", "Appium");
-        cap.setCapability("noReset", true);	//MobileCapabilityType.NO_RESET
-		cap.setCapability("sessionOverride", true);	//--session-override
-		cap.setCapability("newCommandTimeout","60");	//MobileCapabilityType.NEW_COMMAND_TIMEOUT
+        cap.setCapability(MobileCapabilityType.APPLICATION_NAME, appActivity);
+        cap.setCapability(MobileCapabilityType.AUTOMATION_NAME, "Appium");
+        cap.setCapability(MobileCapabilityType.NO_RESET, true);	//
+		cap.setCapability("sessionOverride", true);	
+		cap.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT,"60");
 		cap.setCapability("resetKeyboard", false);
 		cap.setCapability("noSign", true);
         

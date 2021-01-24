@@ -14,7 +14,8 @@ import testcases.BaseTest;
 
 
 /**
- * utility class: take and save a screenshot when test failed
+ * Utility class: get and save a screenshot to local when test failed
+ * File name: screenshot-className-currentTime.png
  * 
  * @author cloverli
  * @date 24/01/2021
@@ -22,10 +23,10 @@ import testcases.BaseTest;
  */
 public class ScreenshotUtil {
 	
-	final String SCREENSHOT_PATH = System.getProperty("user.dir") + "/target/test-output/screenshot";
+	final static String SCREENSHOT_PATH = System.getProperty("user.dir") + "/target/test-output/screenshot";
 	//System.out.println(SCREENSHOT_PATH);
 
-    public void capture(ITestResult result) {
+    public static void capture(ITestResult result) {
       
         WebDriver driver = ((BaseTest) result.getInstance()).driver;
 

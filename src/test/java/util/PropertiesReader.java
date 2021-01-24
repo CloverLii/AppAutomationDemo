@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.util.Properties;
 
 /***
- * utility class: get the values of properties file
+ * Utility class: get the values of properties file
  * 
  * @author cloverli
  * @date 24/01/2021
