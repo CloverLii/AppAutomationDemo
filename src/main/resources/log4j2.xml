@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <!-- directory of logs file -->
+        <Property name="LOG_HOME">logs</Property>
+        <!-- output format of log %t:process name; %C.:class name; %M: method name; %m:error message; %n:new line -->
+        <property name="PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t-%L] %-5level %C.%M - %m%n</property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <!-- only output info above the configuration level(onMatch), and for other info (onMismatch) -->
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${PATTERN}"/>
+        </Console>
+        <!-- output info below the configuration level，
+        back up log file to following dir when meeting the configuration size
+        clear demo.log and then output, and then -->
+        <RollingFile name="RollingFile" fileName="${LOG_HOME}/demo.log"
+                     filePattern="${LOG_HOME}/$${date:yyyy-MM}/%d{yyyy-MM-dd}-demo-%i.log">
+            <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${PATTERN}" charset="UTF-8"/>
+            <Policies>
+                <!-- rollover strategy based on time，default interval is 1 hour, modulate=true to update time -->
+                <!-- log4j2 based on day: %d{yyyy-MM-dd}-%i.log-->
+                <!-- log4j2 based on hour: %d{yyyy-MM-dd HH}-%i.log-->
+                <!-- log4j2 based on minute: %d{yyyy-MM-dd HH:mm}-%i.log-->
+                <!-- log4j2 based on second: %d{yyyy-MM-dd HH:mm:ss}-%i.log-->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <!-- SizeBasedTriggeringPolicy:rollover strategy based on file size -->
+                <SizeBasedTriggeringPolicy size="5 MB"/>
+            </Policies>
+            <!-- max num of log file -->
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <!-- configure output level and Appender-->
+        <root level="debug">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFile"/>
+        </root>
+    </Loggers>
+</Configuration>

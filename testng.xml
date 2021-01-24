@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="AppUI Test Suite" parallel="false">
+
+<parameter name="propertiesPath" value="src/test/resources/config/config.properteis" />
+
+<listeners>
+	<listener class-name="listener.CustomListener" />
+</listeners>
+ 
+  <test name="emulatorTest">
+  	<parameter name="deviceName" value="emulator-5554"/>
+  	<parameter name="platformVersion" value="11"/>
+  	<parameter name="appiumUrl" value="http://localhost:4723"/>
+    <classes>
+      <class name="testcases.TestLaunchApp"/>
+    </classes>
+   <methods>
+   		<include name = "launchApp" />
+   </methods>
+  </test> <!-- Test -->
+ 
+</suite> <!-- Suite -->
