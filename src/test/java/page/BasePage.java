@@ -30,8 +30,8 @@ public class BasePage {
 	public BasePage(MobileDriver<WebElement> driver) {
 		this.driver = driver;
 		this.action = new TouchAction(driver);
-		int timeout = Integer.parseInt(PropertiesReader.getKey("driver.timeout.webDriverWait"));
-		this.wait = new WebDriverWait(driver, timeout);		
+		int timeouts = Integer.parseInt(PropertiesReader.getKey("conf.driver.timeout.webDriverWait"));
+		this.wait = new WebDriverWait(driver, timeouts);		
 	}
 	
 	/**
@@ -39,7 +39,7 @@ public class BasePage {
 	 * @param locator
 	 * @return targeted element
 	 */
-	public WebElement locateElement(By locator) {
+	public WebElement findElement(By locator) {
 		return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 	}
 	
@@ -48,11 +48,10 @@ public class BasePage {
 	 * @param locator
 	 * @return clickable button
 	 */
-	public WebElement buttonElement(By locator) {
-		WebElement button = locateElement(locator);
-		wait.until(ExpectedConditions.elementToBeClickable(button));
-		button.click();
-		return button;
+	public void clickBtn(By locator) {
+		WebElement ele = findElement(locator);
+		wait.until(ExpectedConditions.elementToBeClickable(ele));
+		ele.click();
 	}
 	
 	/**
@@ -61,11 +60,10 @@ public class BasePage {
 	 * @param content
 	 * @return input element
 	 */
-	public WebElement inputElement(By locator, String content) {
-		WebElement inputEle = locateElement(locator);
+	public void sendKeys(By locator, String content) {
+		WebElement inputEle = findElement(locator);
 		inputEle.clear();
 		inputEle.sendKeys(content);
-		return inputEle;
 	}
 	
 //	public MobileDriver<WebElement> switchWindow(){

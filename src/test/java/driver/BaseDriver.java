@@ -1,5 +1,6 @@
 package driver;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -20,10 +21,9 @@ public class BaseDriver {
     private String deviceName;
     private String appPackage;
     private String appActivity;
-    private String automationName;
     private String url;
     
-    public BaseDriver(String platformName, String platformVersion, String deviceName, String appPackage, String appActivity, String automationName, String urlStr) 
+    public BaseDriver(String platformName, String platformVersion, String deviceName, String appPackage, String appActivity, String urlStr) 
     		throws MalformedURLException {
     	
     	 this.platformName = platformName;
@@ -31,19 +31,25 @@ public class BaseDriver {
          this.deviceName = deviceName;
          this.appPackage = appPackage;
          this.appActivity = appActivity;
-         this.automationName = automationName;
          this.url = urlStr;
+         
+         //File appApk = new File("/application/application_name.apk");
 
         DesiredCapabilities cap = new DesiredCapabilities();
-        cap.setCapability("platformName", platformName);
-        cap.setCapability("platformVersion", platformVersion);
-        cap.setCapability("deviceName", deviceName);
+        cap.setCapability("platformName", platformName);	//MobileCapabilityType.PLATFORM_NAME, , MobilePlatform.ANDROID
+        cap.setCapability("platformVersion", platformVersion);	//obileCapabilityType.PLATFORM_VERSION
+        cap.setCapability("deviceName", deviceName);	//MobileCapabilityType.DEVICE_NAME
+        
+        //TODO: setup based on package * activity name OR apk file, absolute dir
+       // cap.setCapability("app", appApk.getAbsolutePath());	//MobileCapabilityType.APP
         cap.setCapability("appPackage", appPackage);
         cap.setCapability("appActivity", appActivity);
-        cap.setCapability("automationName", automationName);
-        cap.setCapability("noReset", true);
-		cap.setCapability("sessionOverride", true);
-		cap.setCapability("newCommandTimeout","60");
+        cap.setCapability("automationName", "Appium");
+        cap.setCapability("noReset", true);	//MobileCapabilityType.NO_RESET
+		cap.setCapability("sessionOverride", true);	//--session-override
+		cap.setCapability("newCommandTimeout","60");	//MobileCapabilityType.NEW_COMMAND_TIMEOUT
+		cap.setCapability("resetKeyboard", false);
+		cap.setCapability("noSign", true);
         
         URL  appiumUrl = new URL(url);
        
@@ -74,10 +80,6 @@ public class BaseDriver {
 
     public String getAppActivity() {
         return appActivity;
-    }
-
-    public String getAutomationName() {
-        return automationName;
     }
     
     public String getAppiumUrl() {
