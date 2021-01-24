@@ -22,32 +22,35 @@ import testcases.BaseTest;
  */
 public class ScreenshotUtil {
 	
-	private static String SCREENSHOT_PATH = System.getProperty("user.dir") + "/target/test-output/screenshot";
+	final String SCREENSHOT_PATH = System.getProperty("user.dir") + "/target/test-output/screenshot";
 	//System.out.println(SCREENSHOT_PATH);
 
-    public static void capture(ITestResult result) {
+    public void capture(ITestResult result) {
       
         WebDriver driver = ((BaseTest) result.getInstance()).driver;
-        // get the dir to save screenshot file
+
         File screenshotDir = new File(SCREENSHOT_PATH);
         // create directory if not exist
         if (!screenshotDir.exists() && !screenshotDir.isDirectory()) {
-            screenshotDir.mkdirs();
+            screenshotDir.mkdir();
         }
-        // get file format from properties file
-        String screenshotFormat = PropertiesReader.getKey("screenshot.format");
-        // get class name when test failure happens
-        String className = result.getInstance().getClass().getSimpleName();
-        // set date format
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy:MM:dd:hh:mm:ss");
-        String timeStr = dateFormat.format(new Date());
+        // get screenshot file format from properties file
+        String screenshotFormat = PropertiesReader.getKey("conf.screenshot.format");
+        // get class name
+        String className = result.getInstance().getClass().getSimpleName();	
+        // get current date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy:MM:dd:HH:mm:ss");	
+        String dateStr = dateFormat.format(new Date());      
         // set screenshot name
-        String screenshotName = className + "-" + timeStr;
+        String screenshotName = "screenshot" + "-" + className + "-" + dateStr + screenshotFormat;
+       
         try {
-            // take screenshot
+            // take screenshot and save to configured path
             File sourcefile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            // save the screenshot as file
-            FileUtils.copyFile(sourcefile, new File(SCREENSHOT_PATH + File.separator + screenshotName + screenshotFormat));
+            String outputFile = SCREENSHOT_PATH + File.separator + screenshotName;
+            System.out.println("...screenshot file name: " + outputFile);
+           
+            FileUtils.copyFile(sourcefile, new File(outputFile));
         } catch (IOException e) {
             e.printStackTrace();
         }

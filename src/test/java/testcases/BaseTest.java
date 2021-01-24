@@ -24,7 +24,6 @@ import util.PropertiesReader;
  * @author cloverli
  * @date 24/01/2021
  */
-
 public class BaseTest {
 
 	private BaseDriver baseDriver;

@@ -1,14 +1,16 @@
+
 package listener;
 
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-
 import java.io.File;
-
 import org.testng.ITestContext;
+import util.ScreenshotUtil;
 
 
 public class CustomListener implements ITestListener{
+	
+	ScreenshotUtil getScreenshot = new ScreenshotUtil(); 
 	
 	private void printInfo(String info) {
 		System.out.println(info);
@@ -27,8 +29,7 @@ public class CustomListener implements ITestListener{
 	@Override
 	public void onTestFailure(ITestResult result) {
 		printInfo("...Test Failed");
-		// get screenshot when test fail
-		File failureShot = null;
+		getScreenshot.capture(result);
 	}
 	
 	public void onTestFailedWithinSuccessPercentage(ITestResult result) {
