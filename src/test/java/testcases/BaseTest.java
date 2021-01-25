@@ -27,12 +27,12 @@ public class BaseTest {
 	private BaseDriver baseDriver;
 	public MobileDriver<WebElement> driver;
 	
-	@BeforeSuite
+	@BeforeSuite(description = "do sth before test suite")
 	public void beforeSuite() {
 		System.out.println("...BaseTest beforeSuite");
 	}
 	
-	@BeforeTest(alwaysRun = true)
+	@BeforeTest(alwaysRun = true, description = "read properties file")
 	@Parameters({"propertiesPath"})
 	public void getProperties(@Optional("src/test/resources/config/config.properties") String propertiesPath) throws IOException {
 		
@@ -40,7 +40,7 @@ public class BaseTest {
 		PropertiesReader.readProperties(propertiesPath);
 	}
 	
-	@BeforeClass
+	@BeforeClass(description = " do sth before class")
 	public void beforeClass() {
 		System.out.println("...BaseTest beforeClass");
 	}
