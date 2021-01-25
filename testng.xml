@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="AppUI Test Suite" parallel="false">
+<suite name="AppUI Test Suite" parallel="false" allow-return-values="false" >
 
 	<parameter name="propertiesPath" value="src/test/resources/config/config.properteis" />
 	<parameter name="platformName" value="Android" />

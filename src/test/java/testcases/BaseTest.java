@@ -27,12 +27,22 @@ public class BaseTest {
 	private BaseDriver baseDriver;
 	public MobileDriver<WebElement> driver;
 	
+	@BeforeSuite
+	public void beforeSuite() {
+		System.out.println("...BaseTest beforeSuite");
+	}
+	
 	@BeforeTest(alwaysRun = true)
 	@Parameters({"propertiesPath"})
 	public void getProperties(@Optional("src/test/resources/config/config.properties") String propertiesPath) throws IOException {
 		
-		System.out.println("...Before suite: read properties file");
+		System.out.println("...BaseTest beforeTest: read properties file");
 		PropertiesReader.readProperties(propertiesPath);
+	}
+	
+	@BeforeClass
+	public void beforeClass() {
+		System.out.println("...BaseTest beforeClass");
 	}
 	
 	@BeforeTest(alwaysRun = true)
@@ -41,7 +51,7 @@ public class BaseTest {
             @Optional("your appPackage") String appPackage, @Optional("your application") String appActivity,
             @Optional("appiumURL") String appiumURL) throws MalformedURLException{
 		
-		System.out.println("...Before test: set up mobile driver");
+		System.out.println("...BaseTest beforeTest: set up mobile driver");
 
 		try {
 			baseDriver = new BaseDriver(platformName, platformVersion, deviceName,appPackage, appActivity, appiumURL);
@@ -57,18 +67,28 @@ public class BaseTest {
 		}catch(MalformedURLException e) {
 			e.printStackTrace();
 		}		
-	}		 
-		
+	}	
 	
-	@AfterClass(alwaysRun = true)
+	@AfterClass
+	public void afterClass() {
+		System.out.println("...BaseTest afterClass");
+	}
+	
+	@AfterTest(alwaysRun = true)
 	public void tearDown() {
 		// TODO: release resources after test finish
 		if (driver != null) {
-			System.out.println("...After class: close app and exit the driver");
+			System.out.println("...BaseTest afterTest: close app and exit the driver");
 			driver.closeApp();
 			driver.quit();
 		}
 	}
+	
+	@AfterSuite
+	public void afterSuite() {
+		System.out.println("...BaseTest afterSuite");
+	}
+	
 	
 }
 

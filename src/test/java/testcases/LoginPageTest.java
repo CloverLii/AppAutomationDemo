@@ -1,5 +1,6 @@
 package testcases;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import io.qameta.allure.Description;
@@ -22,6 +23,12 @@ public class LoginPageTest extends BaseTest {
 	public void testLogin() throws InterruptedException {
 		loginPage = new LoginPage(driver);
 		loginPage.launchApp();
+	}
+	
+	@Test(retryAnalyzer = RetryRunner.class)
+	public void testRetryRunner() {
+		System.out.println("...This method will be automatically executed 3 times");
+		Assert.assertEquals(1, 2);
 	}
 	
 }
