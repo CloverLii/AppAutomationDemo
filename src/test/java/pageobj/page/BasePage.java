@@ -1,4 +1,4 @@
-package page;
+package pageobj.page;
 
 import java.util.Set;
 import org.openqa.selenium.By;

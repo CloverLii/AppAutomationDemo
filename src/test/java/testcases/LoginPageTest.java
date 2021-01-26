@@ -8,7 +8,8 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
-import page.LoginPage;
+import pageobj.page.LoginPage;
+
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
