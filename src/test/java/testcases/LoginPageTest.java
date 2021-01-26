@@ -10,6 +10,8 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import page.LoginPage;
 import org.junit.jupiter.api.Assertions;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 
 @Epic("Allure Epic: update with your own")
@@ -18,6 +20,7 @@ import org.junit.jupiter.api.Assertions;
 public class LoginPageTest extends BaseTest {
 	
 	LoginPage loginPage;
+	private static final Logger log = LoggerFactory.getLogger(LoginPageTest.class);
 	
 	@Test
 	@Description(" Test core function on Login Page ")
@@ -29,6 +32,7 @@ public class LoginPageTest extends BaseTest {
 	@Test(retryAnalyzer = RetryRunner.class, description = "failed method")
 	public void testRetryRunner() {
 		System.out.println("...testRetryRunner: this method will be automatically executed 3 times");
+		log.info("retry failed test up to 3 times");
 		Assert.assertEquals(1, 2);
 	}
 	

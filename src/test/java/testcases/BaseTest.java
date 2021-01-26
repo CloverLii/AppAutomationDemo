@@ -6,6 +6,9 @@ import org.testng.annotations.AfterSuite;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
@@ -22,14 +25,17 @@ import util.PropertiesReader;
  * @author cloverli
  * @date 24/01/2021
  */
+
 public class BaseTest {
 
 	private BaseDriver baseDriver;
 	public MobileDriver<WebElement> driver;
+	private static final Logger log = LoggerFactory.getLogger(BaseTest.class);
 	
 	@BeforeSuite(description = "do sth before test suite")
 	public void beforeSuite() {
 		System.out.println("...BaseTest beforeSuite");
+		log.info("baseTest before suite");
 	}
 	
 	@BeforeTest(alwaysRun = true, description = "read properties file")

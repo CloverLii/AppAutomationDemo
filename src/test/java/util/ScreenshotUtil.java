@@ -9,7 +9,10 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.testng.ITestResult;
+
 import testcases.BaseTest;
 
 
@@ -23,7 +26,8 @@ import testcases.BaseTest;
  */
 public class ScreenshotUtil {
 	
-	final static String SCREENSHOT_PATH = System.getProperty("user.dir") + "/target/test-output/screenshot";
+	final static String SCREENSHOT_PATH = System.getProperty("user.dir") + "/output/screenshot";
+	private final static Logger log = LoggerFactory.getLogger(ScreenshotUtil.class);
 	//System.out.println(SCREENSHOT_PATH);
 
     public static void capture(ITestResult result) {
@@ -54,6 +58,7 @@ public class ScreenshotUtil {
             FileUtils.copyFile(sourcefile, new File(outputFile));
         } catch (IOException e) {
             e.printStackTrace();
+            log.error("can not file [{}] to local path", screenshotName, e);
         }
     }
 }
