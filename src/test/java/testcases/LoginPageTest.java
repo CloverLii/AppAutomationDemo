@@ -8,6 +8,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import listener.FailedRetryRunner;
 import pageobj.page.LoginPage;
 
 import org.junit.jupiter.api.Assertions;
@@ -30,7 +31,7 @@ public class LoginPageTest extends BaseTest {
 		loginPage.launchApp();
 	}
 	
-	@Test(retryAnalyzer = RetryRunner.class, description = "failed method")
+	@Test(retryAnalyzer = FailedRetryRunner.class, description = "failed method")
 	public void testRetryRunner() {
 		System.out.println("...testRetryRunner: this method will be automatically executed 3 times");
 		log.info("retry failed test up to 3 times");

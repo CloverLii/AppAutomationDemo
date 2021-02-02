@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 <suite name="AppUI Test Suite" parallel="false" allow-return-values="false" >
 
 	<parameter name="propertiesPath" value="src/test/resources/config/config.properteis" />
@@ -12,15 +13,13 @@
 
 	<listeners>
 		<listener class-name="listener.TestLogListener" />
+		<listener class-name = "listener.FailedRetryListener" />
 	</listeners>
 	 
 	<test name="emulatorTest">
 	    <classes>
 	      <class name="testcases.LoginPageTest"/>
-	    </classes>
-	   <methods>
-	   		<include name = "testLogin" />
-	   </methods>
+	    </classes>	  
 	  </test> <!-- Test -->
 	 
 </suite> <!-- Suite -->
