@@ -40,10 +40,12 @@ public class BaseTest {
 	
 	@BeforeTest(alwaysRun = true, description = "read properties file")
 	@Parameters({"propertiesPath"})
-	public void getProperties(@Optional("src/test/resources/config/config.properties") String propertiesPath) throws IOException {
+	public void getProperties(@Optional("src/test/resources/config/config.properties") String propertiesPath,
+							  @Optional("src/test/resources/config/log4j.properties") String log4jConPath) throws IOException {
 		
 		System.out.println("...BaseTest beforeTest: read properties file");
 		PropertiesReader.readProperties(propertiesPath);
+		PropertiesReader.readProperties(log4jConPath);
 	}
 	
 	@BeforeClass(description = " do sth before class")
