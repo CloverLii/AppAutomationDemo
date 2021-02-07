@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="AppUI Test Suite" parallel="false" allow-return-values="false" >
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="App UI Test Suite 1" parallel="false" allow-return-values="false" >
 
-	<parameter name="propertiesPath" value="src/test/resources/config/config.properteis" />
+	<parameter name="propertiesPath" value="src/test/resources/config/config.properties" />
+	<parameter name="log4jConPath" value="src/test/resources/log4j.properties"/>
+	
 	<parameter name="platformName" value="Android" />
 	<parameter name="platformVersion" value="11" />
 	<parameter name="deviceName" value="emulator-5554" />
-	<parameter name="appPackage" value="com.google.deskclock" />
-	<parameter name="appActivity" value="com.android.deskclock.DeskClock" />
+	<parameter name="appDirectory" value="/src/test/resources/app/test.au.com.seek.apk" />
+	<parameter name="appPackage" value="au.com.seek"/>
+	<parameter name="appActivity" value="seek.base.ui.mainview.DeeplinkActivity"/>
+	<parameter name="automationName" value="Appium"/>
 	<parameter name="appiumURL" value="http://127.0.0.1:4723/wd/hub" />
 
 
 	<listeners>
 		<listener class-name="listener.TestLogListener" />
+		<listener class-name="listener.FailedRetryListener" />
 	</listeners>
 	 
-	<test name="emulatorTest">
+	<test name="test with emulator">
 	    <classes>
-	      <class name="testcases.LoginPageTest"/>
-	    </classes>
-	   <methods>
-	   		<include name = "testLogin" />
-	   </methods>
-	  </test> <!-- Test -->
-	 
-</suite> <!-- Suite -->
+	      <class name="testcases.MainPageTest"/>
+	    </classes>	  
+	  </test> <!-- Test -->	 
+</suite> 

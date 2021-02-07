@@ -7,42 +7,43 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
-/***
- * Utility class: get the values of properties file
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * 
+ * Utility class: Read properties file and get values
  * 
  * @author cloverli
- * @date 24/01/2021
+ * @date 07/02/2021
  *
  */
-
-
 public class PropertiesReader {
+
+	private static Logger log = LoggerFactory.getLogger(PropertiesReader.class);
 
 	private static final Properties PROPERTIES = new Properties();
 	
 	private PropertiesReader() {}
 	
-	/**
-	 * 
-	 * @param propertiesPath: the directory of properties file
-	 * @return
-	 * @throws IOException
-	 */
+	// read properties file from file path 
 	public static Properties readProperties(String propertiesPath) throws IOException{
 		
 		InputStream inputStream = new FileInputStream(propertiesPath);
 		InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 		BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-		PROPERTIES.load(bufferedReader);
-		return PROPERTIES;
 		
+		PROPERTIES.load(bufferedReader);
+		log.info(String.format("====read properties file: %s ====", propertiesPath));
+		
+		return PROPERTIES;		
 	}
-	/***
-	 * 
-	 * @param key
-	 * @return value of the property
-	 */
+	
+	// get value of property
 	public static String getKey(String key) {
-		return PROPERTIES.getProperty(key);
+		String propertyValue = PROPERTIES.getProperty(key);
+		log.info(String.format("====get value of {%s} from properties file: %s ====", key, propertyValue));
+		
+		return propertyValue;
 	}
 }

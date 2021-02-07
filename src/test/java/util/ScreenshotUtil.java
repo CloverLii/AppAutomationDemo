@@ -26,8 +26,10 @@ import testcases.BaseTest;
  */
 public class ScreenshotUtil {
 	
-	final static String SCREENSHOT_PATH = System.getProperty("user.dir") + "/output/screenshot";
-	private final static Logger log = LoggerFactory.getLogger(ScreenshotUtil.class);
+	private static Logger log = LoggerFactory.getLogger(ScreenshotUtil.class);
+	
+	final static String SCREENSHOT_PATH = System.getProperty("user.dir") + "/output/screenshots";
+
 	//System.out.println(SCREENSHOT_PATH);
 
     public static void capture(ITestResult result) {
