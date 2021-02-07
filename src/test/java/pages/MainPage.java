@@ -1,4 +1,4 @@
-package pageobj.page;
+package pages;
 
 import org.openqa.selenium.WebElement;
 
