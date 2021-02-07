@@ -4,6 +4,12 @@
   <artifactId>appuitest</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
+  	<properties>
+		<suiteXmlFile>testng.xml</suiteXmlFile>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<aspectj.version>1.9.6</aspectj.version>
+  	</properties>
+  
   <dependencies>
   	<!-- https://mvnrepository.com/artifact/io.appium/java-client -->
 	<dependency>

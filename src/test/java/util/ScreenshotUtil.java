@@ -28,7 +28,7 @@ public class ScreenshotUtil {
 	
 	private static Logger log = LoggerFactory.getLogger(ScreenshotUtil.class);
 	
-	final static String SCREENSHOT_PATH = System.getProperty("user.dir") + "/output/screenshot";
+	final static String SCREENSHOT_PATH = System.getProperty("user.dir") + "/output/screenshots";
 
 	//System.out.println(SCREENSHOT_PATH);
 

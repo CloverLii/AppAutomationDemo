@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.appium.java_client.MobileDriver;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 
 public class BaseDriver {
@@ -20,30 +22,35 @@ public class BaseDriver {
     private String platformVersion;
     private String deviceName;
     private String appDir;
+    private String appPackage;
+    private String appActivity;
     private String automationName;
     private String url;
     
-    public BaseDriver(String platformName, String platformVersion, String deviceName, String appDir, String autoName, String urlStr) throws MalformedURLException {
+    public BaseDriver(String platformName, String platformVersion, String deviceName, String appPkg, String appActivity, String autoName, String urlStr) throws MalformedURLException {
     	
     	 this.platformName = platformName;
     	 this.platformVersion = platformVersion;
          this.deviceName = deviceName;
-         this.appDir = appDir;
+         this.appPackage = appPkg;
+         this.appActivity = appActivity;
          this.automationName = autoName;
          this.url = urlStr;
     }
     
     public MobileDriver<WebElement> startMobile() throws MalformedURLException {
     	
-    	File app = new File(appDir);
-    	log.info(String.format("====get application package: %s ====",appDir));
+    	//File app = new File(appDir);
+    	//log.info(String.format("====get directory of application package: %s ====",appDir));
         //iOS app file: https://applitools.bintray.com/Examples/eyes-ios-hello-world.zip
     	
     	DesiredCapabilities cap = new DesiredCapabilities();
         cap.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
         cap.setCapability(MobileCapabilityType.PLATFORM_VERSION, platformVersion);
-        cap.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);        
-        cap.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
+        cap.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);    
+        cap.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, appPackage);
+        cap.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, appActivity);
+        //cap.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
         cap.setCapability(MobileCapabilityType.AUTOMATION_NAME, automationName);
         
         cap.setCapability(MobileCapabilityType.NO_RESET, true);
@@ -54,7 +61,13 @@ public class BaseDriver {
         
         URL  appiumUrl = new URL(url);
         
-        driver = new AndroidDriver<>(appiumUrl, cap);
+        if(platformName == "Android") {
+        	driver = new AndroidDriver<WebElement>(appiumUrl, cap);
+        }else {
+        	driver = new IOSDriver<WebElement>(appiumUrl, cap);
+        }
+        log.info("====start mobile driver ====");
+        
         return driver;
     }
     
@@ -73,12 +86,20 @@ public class BaseDriver {
     public String getDeviceName() {
         return deviceName;
     }
-
+    
     public String getAppPackage() {
-        return appDir;
+        return appPackage;
     }
 
     public String getAppActivity() {
+        return appActivity;
+    }
+
+    public String getAppDir() {
+        return appDir;
+    }
+
+    public String getAutomationName() {
         return automationName;
     }
     
