@@ -4,11 +4,11 @@
 
 	<parameter name="propertiesPath" value="src/test/resources/config/config.properties" />
 	<parameter name="log4jConPath" value="src/test/resources/log4j.properties"/>
+	
 	<parameter name="platformName" value="Android" />
 	<parameter name="platformVersion" value="11" />
 	<parameter name="deviceName" value="emulator-5554" />
-	<parameter name="appPackage" value="com.google.deskclock" />
-	<parameter name="appActivity" value="com.android.deskclock.DeskClock" />
+	<parameter name="appDir" value="/src/test/resources/app/test.au.com.seek.apk" />
 	<parameter name="appiumURL" value="http://127.0.0.1:4723/wd/hub" />
 
 
