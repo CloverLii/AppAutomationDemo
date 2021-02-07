@@ -92,7 +92,8 @@ public class BaseDriver {
         	log.info(String.format("====close application ===="));
             driver.closeApp();
             
-            log.info(String.format("====close iOS driver ===="));
+            log.info(String.format("====close mobile driver ===="));
+            driver.quit();
     	}
     }
 }
