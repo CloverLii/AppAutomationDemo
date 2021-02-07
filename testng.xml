@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
-<suite name="AppUI Test Suite" parallel="false" allow-return-values="false" >
+<suite name="App UI Test Suite 1" parallel="false" allow-return-values="false" >
 
 	<parameter name="propertiesPath" value="src/test/resources/config/config.properties" />
-	<parameter name="log4jConPath" value="src/test/resources/config/log4j.properties"/>
+	<parameter name="log4jConPath" value="src/test/resources/log4j.properties"/>
 	<parameter name="platformName" value="Android" />
 	<parameter name="platformVersion" value="11" />
 	<parameter name="deviceName" value="emulator-5554" />
@@ -14,13 +14,12 @@
 
 	<listeners>
 		<listener class-name="listener.TestLogListener" />
-		<listener class-name = "listener.FailedRetryListener" />
+		<listener class-name="listener.FailedRetryListener" />
 	</listeners>
 	 
-	<test name="emulatorTest">
+	<test name="test with emulator">
 	    <classes>
-	      <class name="testcases.LoginPageTest"/>
+	      <class name="testcases.MainPageTest"/>
 	    </classes>	  
-	  </test> <!-- Test -->
-	 
-</suite> <!-- Suite -->
+	  </test> <!-- Test -->	 
+</suite> 
