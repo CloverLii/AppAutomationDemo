@@ -1,4 +1,4 @@
-package testcases;
+package pom.testcases;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -73,20 +73,23 @@ public class BaseTest {
 		return driver.isAppInstalled(appId);
 	}
 	
+	private void implicitWait(int sec) {
+		driver.manage().timeouts().implicitlyWait(sec, TimeUnit.SECONDS);
+	}
+	
 
-	@Test(alwaysRun = true, priority = 1)
 	public void setUp() throws MalformedURLException{
 				
 		// initialize mobile driver
 		baseDriver = new BaseDriver(pName, pVersion, dName, appPkg, appAct, autoName, appiumUrl);
-		driver = baseDriver.startMobile();
+		driver = baseDriver.getDriver();
 			
 		log.info("====input caps: " + pName + "--" + pVersion + "--"  + dName + "--"  + appPkg + "--" + appAct + "--" + autoName + "--"  + appiumUrl);
 		log.info("====confirm caps: " + baseDriver.getPlatformName() + baseDriver.getPlatformVersion() + baseDriver.getAppActivity() + baseDriver.getAutomationName() + baseDriver.getAppiumUrl());
 		log.info(String.format("==== install applicaiton via package successfully: %s", appInstalled(appPkg)));
 			
-		int implicitWait = Integer.parseInt(PropertiesReader.getKey("conf.driver.timeouts.implicitlyWait"));
-		driver.manage().timeouts().implicitlyWait(implicitWait, TimeUnit.SECONDS);
+		int waitSeconds = Integer.parseInt(PropertiesReader.getKey("conf.driver.timeouts.implicitlyWait"));
+		implicitWait(waitSeconds);
 				
 	}	
 			

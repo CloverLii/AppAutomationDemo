@@ -1,4 +1,4 @@
-package testcases;
+package pom.testcases;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -24,13 +24,7 @@ public class MainPageTest extends BaseTest {
 	
 	MainPage loginPage;
 	private static final Logger log = LoggerFactory.getLogger(MainPageTest.class);
-	
-	@Test(description = "All items on the main page are loaded correctly", groups = {"regression", "negative"})
-	@Story("XX is loaded as normal")
-	public void testLogin() throws InterruptedException {
-		loginPage = new MainPage(driver);
-		loginPage.launchApp();
-	}
+
 	
 	@Test(retryAnalyzer = FailedRetryRunner.class, description = "failed method")
 	public void testRetryRunner() {
