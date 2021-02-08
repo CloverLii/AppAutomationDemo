@@ -1,32 +1,38 @@
-Application UI automation framework
+# appuitest
+This is an **ongoing** project for Application UI automation, using: 
 
-Java: Appium + TestNG + log (slf4i&log4j) + report (Allure) + assertion (junit5 & testng) + maven + PO Model
+- TestNG: for tests execution
+- Appium: for tests creation
+- Junit5: for group assertion
+- Maven: for dependencies management
+- Slf4j & log4j: for logging
+- Allure: for report
+- Page Object Model
+- Cucumber: BDD style (ongoing)
 
-Structure:
--src/test/java:
-    -driver
-    -listener
-    -pageobj.page
-    -pageobj.locator
-    -pageobj.data
-    -testcases
-    -util
--src/test/resources:
-    -config: 
-        -config.properties
-        -log4j.properteis
--application
--ouput:
-    -screenshot
-    -logs
-    -reports
+**Project Structure:**
 
-Features —— still ongoing:
--output log files using slf4j+log4j
--save screenshot of failed cases
--retry failed methods up to 3 times
--configure global parameters using properties file
--configure execution using testing.xml
--check group of values using junit.jupiter.api.Assertions.assertAll()
--generate readable reports
+src/test/java:
 
+- driver
+- listener
+- pom.pages
+- pom.testcases
+- util
+
+src/test/resources:
+- app
+  - XXX.apk
+- config
+  - config.properties
+  - initTestDevice.properties
+- allure.properties
+- log4j.properties
+
+output:
+- logs
+- screenshots
+
+pom.xml
+
+testng.xml
