@@ -1,7 +1,8 @@
-package testcases;
+package pom.testcases;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -31,6 +32,8 @@ public class BaseTest {
 	private BaseDriver baseDriver;
 	public MobileDriver<WebElement> driver;
 	
+	private Properties pro;
+	
 	private String pName;
 	private String pVersion;
 	private String dName;
@@ -42,52 +45,51 @@ public class BaseTest {
 	
 	
 	@BeforeTest(alwaysRun = true, description = "read property files")
-	@Parameters({"propertiesPath", "log4jConPath", "platformName", "platformVersion", "deviceName","appPackage", "appActivity", "automationName", "appiumURL", "appDirectory"})
+	@Parameters({"propertiesPath", "log4jConPath", "initTestPath"})
 	public void getProperties(@Optional("src/test/resources/config/config.properties") String propertiesPath,
 							  @Optional("src/test/resources/log4j.properties") String log4jConPath,
-							  @Optional("Android") String platformName,
-							  @Optional("11") String platformVersion,
-							  @Optional("emulator-5554") String deviceName,
-							  @Optional("au.com.seek") String appPackage,
-							  @Optional("seek.base.ui.features.auth.AuthActivity") String appActivity,
-							  @Optional("Appium") String automationName,
-							  @Optional("http://127.0.0.1:4723/wd/hub") String appiumURL,
-							  @Optional("/src/test/resources/app/test.au.com.seek.apk") String appLoc) throws IOException {
+							  @Optional("src/test/resources/initTestDevice.properties") String initTestPath) throws IOException {
 		
 		log.info("====BeforeTest: read properties files====");
 		PropertiesReader.readProperties(propertiesPath);
 		//PropertiesReader.readProperties(log4jConPath);
+		pro = PropertiesReader.readProperties(initTestPath);
 		PropertyConfigurator.configure(log4jConPath);
 		
-		pName = platformName;
-		pVersion = platformVersion;
-		dName = deviceName;
-		appPkg = appPackage;
-		appAct = appActivity;
-		autoName = automationName;
-		appiumUrl = appiumURL;
-		appDir = appLoc;
+		// initialize test device with properties file
+		pName = pro.getProperty("platformName");
+		pVersion = pro.getProperty("platformVersion");
+		dName = pro.getProperty("deviceName");
+		appPkg = pro.getProperty("appPackage");
+		appAct = pro.getProperty("appActivity");
+		autoName = pro.getProperty("automationName");
+		appiumUrl = pro.getProperty("appiumURL");
+		appDir = pro.getProperty("appLoc");
 	}
+	
+	// check if application is installed successfully
+	private boolean appInstalled(String appId) {
 		
-	private boolean appInstalled() {
-		
-		return driver.isAppInstalled("test.au.com.seek");
+		return driver.isAppInstalled(appId);
+	}
+	
+	private void implicitWait(int sec) {
+		driver.manage().timeouts().implicitlyWait(sec, TimeUnit.SECONDS);
 	}
 	
 
-	@Test(alwaysRun = true, priority = 1)
 	public void setUp() throws MalformedURLException{
 				
 		// initialize mobile driver
 		baseDriver = new BaseDriver(pName, pVersion, dName, appPkg, appAct, autoName, appiumUrl);
-		driver = baseDriver.startMobile();
+		driver = baseDriver.getDriver();
 			
 		log.info("====input caps: " + pName + "--" + pVersion + "--"  + dName + "--"  + appPkg + "--" + appAct + "--" + autoName + "--"  + appiumUrl);
 		log.info("====confirm caps: " + baseDriver.getPlatformName() + baseDriver.getPlatformVersion() + baseDriver.getAppActivity() + baseDriver.getAutomationName() + baseDriver.getAppiumUrl());
-		log.info(String.format("==== install applicaiton via package successfully: %s", appInstalled()));
+		log.info(String.format("==== install applicaiton via package successfully: %s", appInstalled(appPkg)));
 			
-		int implicitWait = Integer.parseInt(PropertiesReader.getKey("conf.driver.timeouts.implicitlyWait"));
-		driver.manage().timeouts().implicitlyWait(implicitWait, TimeUnit.SECONDS);
+		int waitSeconds = Integer.parseInt(PropertiesReader.getKey("conf.driver.timeouts.implicitlyWait"));
+		implicitWait(waitSeconds);
 				
 	}	
 			

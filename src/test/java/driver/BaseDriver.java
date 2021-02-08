@@ -1,6 +1,5 @@
 package driver;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.openqa.selenium.WebElement;
@@ -36,9 +35,11 @@ public class BaseDriver {
          this.appActivity = appActivity;
          this.automationName = autoName;
          this.url = urlStr;
+         
+         this.driver = initDriver();
     }
     
-    public MobileDriver<WebElement> startMobile() throws MalformedURLException {
+    private MobileDriver<WebElement> initDriver() throws MalformedURLException {
     	
     	//File app = new File(appDir);
     	//log.info(String.format("====get directory of application package: %s ====",appDir));
@@ -61,14 +62,12 @@ public class BaseDriver {
         
         URL  appiumUrl = new URL(url);
         
+        log.info("====initialize mobile driver ====");
         if(platformName == "Android") {
-        	driver = new AndroidDriver<WebElement>(appiumUrl, cap);
+        	return new AndroidDriver<WebElement>(appiumUrl, cap);
         }else {
-        	driver = new IOSDriver<WebElement>(appiumUrl, cap);
-        }
-        log.info("====start mobile driver ====");
-        
-        return driver;
+        	return new IOSDriver<WebElement>(appiumUrl, cap);
+        }       
     }
     
     public MobileDriver<WebElement> getDriver() {
