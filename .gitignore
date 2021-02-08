@@ -3,6 +3,7 @@
 
 # log files
 *.log
+
 # package files
 *.jar
 *.war
@@ -27,8 +28,7 @@ pom.xml.next
 release.properties
 
 # folders
+output/
 allure-results/
-test-output/
 screenshots/
-report/
 logs/
