@@ -1,12 +1,15 @@
-package pages;
+package pom.pages;
 
 import java.util.Set;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import io.appium.java_client.MobileDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.touch.offset.PointOption;
 import util.PropertiesReader;
 
@@ -14,7 +17,7 @@ import util.PropertiesReader;
  * Basic class containing common functions used in application page
  * 
  * @author cloverli
- * @date 24/01/2021
+ * @date 08/02/2021
  *
  */
 public class BasePage {
@@ -27,40 +30,30 @@ public class BasePage {
 	public BasePage(MobileDriver<WebElement> driver) {
 		this.driver = driver;
 		this.action = new TouchAction(driver);
+		
 		int timeouts = Integer.parseInt(PropertiesReader.getKey("conf.driver.timeout.webDriverWait"));
-		this.wait = new WebDriverWait(driver, timeouts);		
+		this.wait = new WebDriverWait(driver, timeouts);
+		
+		//PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 	
-	/**
-	 * 
-	 * @param locator
-	 * @return targeted element
-	 */
-	public WebElement findElement(By locator) {
-		return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+	// find element by locator
+	public MobileElement findElement(By locator) {
+		return (MobileElement) wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 	}
 	
-	/**
-	 * 
-	 * @param locator
-	 * @return clickable button
-	 */
-	public void clickBtn(By locator) {
-		WebElement ele = findElement(locator);
-		wait.until(ExpectedConditions.elementToBeClickable(ele));
-		ele.click();
+	// click element by locator: button, hyper link
+	public void clickElement(By locator) {
+		MobileElement element = findElement(locator);
+		wait.until(ExpectedConditions.elementToBeClickable(element));
+		element.click();
 	}
 	
-	/**
-	 * 
-	 * @param locator
-	 * @param content
-	 * @return input element
-	 */
+	// send keys
 	public void sendKeys(By locator, String content) {
-		WebElement inputEle = findElement(locator);
-		inputEle.clear();
-		inputEle.sendKeys(content);
+		MobileElement inputElement = findElement(locator);
+		inputElement.clear();
+		inputElement.sendKeys(content);
 	}
 	
 //	public MobileDriver<WebElement> switchWindow(){
@@ -72,12 +65,12 @@ public class BasePage {
 //		return driver;
 //	}
 	
-	/**
-	 *  Switch to next window
-	 * @return driver
-	 */
+
+	// switch to next window handle
 	public MobileDriver<WebElement> switch2NextWindow(){
+		// get current window handle
 		String currentHandle = driver.getWindowHandle();
+		// get all window handles
 		Set<String> allHandles = driver.getWindowHandles();
 		for (String window: allHandles) {
 			if(!currentHandle.equals(window)) {

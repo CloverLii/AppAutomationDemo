@@ -3,17 +3,8 @@
 <suite name="App UI Test Suite 1" parallel="false" allow-return-values="false" >
 
 	<parameter name="propertiesPath" value="src/test/resources/config/config.properties" />
-	<parameter name="log4jConPath" value="src/test/resources/log4j.properties"/>
-	
-	<parameter name="platformName" value="Android" />
-	<parameter name="platformVersion" value="11" />
-	<parameter name="deviceName" value="emulator-5554" />
-	<parameter name="appDirectory" value="/src/test/resources/app/test.au.com.seek.apk" />
-	<parameter name="appPackage" value="au.com.seek"/>
-	<parameter name="appActivity" value="seek.base.ui.mainview.DeeplinkActivity"/>
-	<parameter name="automationName" value="Appium"/>
-	<parameter name="appiumURL" value="http://127.0.0.1:4723/wd/hub" />
-
+	<parameter name="log4jConPath" value="src/test/resources/log4j.properties"/>	
+	<parameter name="initTestPath" value="src/test/resources/config/initTestDevice.properties"/>
 
 	<listeners>
 		<listener class-name="listener.TestLogListener" />

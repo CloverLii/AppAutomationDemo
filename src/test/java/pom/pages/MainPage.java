@@ -1,4 +1,4 @@
-package pages;
+package pom.pages;
 
 import org.openqa.selenium.WebElement;
 

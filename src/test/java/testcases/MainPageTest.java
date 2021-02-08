@@ -10,7 +10,7 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 import listener.FailedRetryRunner;
-import pages.MainPage;
+import pom.pages.MainPage;
 
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.LoggerFactory;
